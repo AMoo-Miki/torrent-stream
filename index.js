@@ -559,8 +559,10 @@ var torrentStream = function (link, opts, cb) {
 
         rechokeIntervalId = setInterval(onrechoke, RECHOKE_INTERVAL)
 
-        engine.emit('ready')
-        refresh()
+        process.nextTick(function () {
+            engine.emit('ready')
+            refresh()
+        })
       }
 
       if (opts.verify === false) return onready()
